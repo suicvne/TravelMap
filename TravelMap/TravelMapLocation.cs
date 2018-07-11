@@ -1,6 +1,7 @@
 ﻿using System;
 using MapKit;
 using CoreLocation;
+using System.Timers;
 
 namespace TravelMap
 {
@@ -24,25 +25,6 @@ namespace TravelMap
         {
             Date = date;
             Location = location;
-
-
-            CLGeocoder coder = new CLGeocoder();
-            CLLocation clLocation = new CLLocation(Location.Latitude, Location.Longitude);
-
-            LocationNameString = $"{location.Latitude}, {location.Longitude}";
-            coder.ReverseGeocodeLocation(clLocation, (placemarks, error) =>
-            {
-                CLPlacemark placemark = placemarks[0];
-                if(placemark != null)
-                {
-                    LocationNameString = placemark.Name;
-                }
-                if(error != null)
-                {
-                    Console.WriteLine("Error Placemarking: " + error.LocalizedDescription);
-                    LocationNameString = $"{location.Latitude}, {location.Longitude}";
-                }
-            });
         }
     }
 }
